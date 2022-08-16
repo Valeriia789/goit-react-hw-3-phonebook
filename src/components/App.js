@@ -70,7 +70,25 @@ export default class App extends Component {
     )
   }
 
+  componentDidMount() {
+    console.log('App componentDidMount');
+  }
+
+  componentDidUpdate() {
+    console.log('App componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('App componentWillUnmount');
+  }
+
+
+
+
+
   render () {
+    console.log('App render');
+
     const { contacts, filter } = this.state
     const filteredContacts = this.getFilteredContacts()
 
@@ -106,3 +124,9 @@ export default class App extends Component {
     )
   }
 }
+
+
+
+
+// export default class App extends Component {
+//  }
