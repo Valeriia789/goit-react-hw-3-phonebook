@@ -70,33 +70,26 @@ export default class App extends Component {
     )
   }
 
-  componentDidMount() {
-    console.log('App componentDidMount');
+  componentDidMount () {
+    const contacts = localStorage.getItem('contacts')
+    const parsedContacts = JSON.parse(contacts)
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts })
+    }
   }
 
-  componentDidUpdate() {
-    console.log('App componentDidUpdate');
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
   }
-
-  componentWillUnmount() {
-    console.log('App componentWillUnmount');
-  }
-
-
-
-
 
   render () {
-    console.log('App render');
-
     const { contacts, filter } = this.state
     const filteredContacts = this.getFilteredContacts()
 
     const closeFriendsGroup = contacts.filter(contact => contact.group)
-    // const closeFriendsGroup = contacts.reduce(
-    //   (acc, contact) => (contact.group ? acc + 1 : acc),
-    //   0
-    // )
 
     return (
       <>
@@ -124,9 +117,3 @@ export default class App extends Component {
     )
   }
 }
-
-
-
-
-// export default class App extends Component {
-//  }
