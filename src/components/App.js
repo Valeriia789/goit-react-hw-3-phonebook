@@ -15,7 +15,6 @@ export default class App extends Component {
     }
   }
 
-  
   addContact = (name, number) => {
     const { contacts } = this.state
     const names = contacts.map(contact => contact.name)
