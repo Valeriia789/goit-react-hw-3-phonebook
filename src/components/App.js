@@ -6,12 +6,23 @@ import ContactsEditor from './ContactsEditor/ContactsEditor'
 import { Filter } from './Filter/Filter'
 
 export default class App extends Component {
-  constructor (props) {
-    super(props)
+  state = {
+    contacts: [],
+    filter: ''
+  }
 
-    this.state = {
-      contacts: [],
-      filter: ''
+  componentDidMount () {
+    const contacts = localStorage.getItem('contacts')
+    const parsedContacts = JSON.parse(contacts)
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts })
+    }
+  }
+
+  componentDidUpdate (_, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
     }
   }
 
@@ -68,21 +79,6 @@ export default class App extends Component {
     return this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
     )
-  }
-
-  componentDidMount () {
-    const contacts = localStorage.getItem('contacts')
-    const parsedContacts = JSON.parse(contacts)
-
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts })
-    }
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-    }
   }
 
   render () {
